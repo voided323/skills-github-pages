@@ -4,8 +4,9 @@ Rating: Easy
 OS: Windows
 ---
 # Forest HTB
-*This writeup is for the Forst Hack the Box Machine*
 ![Logo](Images/Forest_HTB/forest_logo.png)
+
+*This writeup is for the Forst Hack the Box Machine*
 
 We'll start by enumerating this box using a quick nmap scan running the default scripts:
 ```bash
