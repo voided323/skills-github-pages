@@ -23,7 +23,8 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 The base web page has this link, the URL is redirecting to:
 `http://tickets.keeper.htb/rt/`
-[Keeper Web Page](Images/Keeper_HTB/Screenshot_2025-01-31_01-06-23.png)
+
+![Keeper Web Page](Images/Keeper_HTB/Screenshot_2025-01-31_01-06-23.png)
 
 I'll dump the domain name into the `/etc/hosts` file:
 `110.10.11.227    tickets.keeper.htb keeper.htb`
