@@ -28,14 +28,16 @@ The base web page has this link, the URL is redirecting to:
 I'll dump the domain name into the `/etc/hosts` file:
 `110.10.11.227    tickets.keeper.htb keeper.htb`
 
-[Keeper Ticket Page](Images/Keeper_HTB/Screenshot_2025-01-31_01-12-34.png)
+![Keeper Ticket Page](Images/Keeper_HTB/Screenshot_2025-01-31_01-12-34.png)
 
 We can sign in using the default credentials of `root` and `password`
 Checking through the tickets, there's one open about a KeePass issue on the users Windows box
-[Open_Ticket](Images/Keeper_HTB/Open_Tickets.png)
+
+![Open_Ticket](Images/Keeper_HTB/Open_Tickets.png)
 
 Some further poking around, we can see that the user Inorgaard has their user password in the profile:
-[Inorgaard user](Images/Keeper_HTB/Inorgaard.png)
+
+![Inorgaard user](Images/Keeper_HTB/Inorgaard.png)
 
 Once we're on this box, we'll grab two files that were alluded to in the ticket:
 ```bash
