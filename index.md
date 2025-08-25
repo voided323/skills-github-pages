@@ -19,3 +19,15 @@ If you'd like to reach out, I can be contacted at alex@nevin.com.au
 
 # CTFs
 [HTB Escape](_posts/CTFs/2025-01-13-Escape-HTB.md)
+[HTB ServMon](_posts/CTFs/2025-01-13-ServMon-HTB.md)
+[HTB Forest](_posts/CTFs/2025-01-25-Forest-HTB.md)
+[HTB Support](_posts/CTFs/2025-01-26-Support-HTB.md)
+[HTB Bastion](_posts/CTFs/2025-01-29-Bastion-HTB.md)
+[HTB Sau](_posts/CTFs/2025-01-29-Sau-HTB.md)
+[HTB Keeper](_posts/CTFs/2025-01-30-Keeper-HTB.md)
+[HTB Sauna](_posts/CTFs/2025-01-31-Sauna-HTB.md)
+
+# Technical
+[NeoVim](_posts/Technical/2025-08-09-NeoVim.md)
+
+
