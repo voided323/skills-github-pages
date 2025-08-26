@@ -29,5 +29,6 @@ If you'd like to reach out, I can be contacted at alex@nevin.com.au
 
 # Technical
 [NeoVim](_posts/Technical/2025-08-09-NeoVim.md)
+[OllyDbg](_posts/Technical/2025-08-26-OllyDbg.md)
 
 
