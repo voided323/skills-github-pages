@@ -173,7 +173,7 @@ Then I'll download it from the Evil-WinRM session and upload it to my BloodHound
 ![BloodHound_Stats](Images/Forest_HTB/forest_bloodHound_stats.png)
 
 We'll start by marking the user as owned, then we'll find the shortest path from the owned user to High Value Targets
-![BloodHound_Path](Images/Forest_HTB/forest_bloodHound_Alfresco)
+![BloodHound_Path](https://raw.githubusercontent.com/voided323/skills-github-pages/blob/main/_posts/CTFs/Images/Forest_HTB/forest_bloodHound_stats.png)
 
 We'll use the svc-Alfresco to exploit the Write-DACL permissions over the Exchange Windows Permissions group. 
 The service account is under the Account Operators group which has write permissions over the Exchange Windows Permissions group.
