@@ -4,7 +4,7 @@ Rating: Easy
 OS: Windows
 ---
 # Forest HTB
-![Logo](Images/Forest_HTB/forest_logo.png)
+![Logo](../Images/Forest_HTB/forest_logo.png)
 
 *This writeup is for the Forst Hack the Box Machine*
 
