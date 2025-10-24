@@ -170,7 +170,7 @@ I spent hours trying to get BloodHound and the Digestor up and running, ultimate
 `*Evil-WinRM* PS C:\Users\svc-alfresco\Documents> .\SharpHound.exe --collectionmethods all --domain htb.local --LdapUsername svc-alfresco --LdapPassword s3rvice`
 
 Then I'll download it from the Evil-WinRM session and upload it to my BloodHound database.
-![BloodHound_Stats](https://github.com/voided323/skills-github-pages/blob/d9e9770f404d7020dad59626a538f7a020c8c954/_posts/CTFs/Images/Forest_HTB/forest_bloodHound_stats.png)
+![BloodHound_Stats](https://fastly.picsum.photos/id/588/200/300.jpg?hmac=Bb5mvfvSw-sKhocAA4Mfdb78ysl5ktbClTt-Lc0IyWk)
 
 We'll start by marking the user as owned, then we'll find the shortest path from the owned user to High Value Targets
 ![BloodHound_Path](https://raw.githubusercontent.com/voided323/skills-github-pages/blob/main/_posts/CTFs/Images/Forest_HTB/forest_bloodHound_stats.png)
