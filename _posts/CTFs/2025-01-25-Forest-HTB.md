@@ -1,10 +1,10 @@
 ---
 Title: Forest HTB
-Rating: Easy
-OS: Windows
+Author: Alex
 ---
-# Forest HTB
-![Logo](../Images/Forest_HTB/forest_logo.png)
+### Rating: Easy
+### OS: Windows
+![Logo](https://github.com/voided323/skills-github-pages/blob/main/_posts/CTFs/Images/Forest_HTB/forest_logo.png?raw=true)
 
 *This writeup is for the Forst Hack the Box Machine*
 
@@ -173,7 +173,7 @@ Then I'll download it from the Evil-WinRM session and upload it to my BloodHound
 ![BloodHound_Stats](https://raw.githubusercontent.com/voided323/skills-github-pages/refs/heads/main/_posts/CTFs/Images/Forest_HTB/forest_bloodHound_stats.png)
 
 We'll start by marking the user as owned, then we'll find the shortest path from the owned user to High Value Targets
-![BloodHound_Path](https://raw.githubusercontent.com/voided323/skills-github-pages/blob/main/_posts/CTFs/Images/Forest_HTB/forest_bloodHound_stats.png)
+![BloodHound_Path](https://raw.githubusercontent.com/voided323/skills-github-pages/refs/heads/main/_posts/CTFs/Images/Forest_HTB/forest_bloodHound_Alfresco.png)
 
 We'll use the svc-Alfresco to exploit the Write-DACL permissions over the Exchange Windows Permissions group. 
 The service account is under the Account Operators group which has write permissions over the Exchange Windows Permissions group.

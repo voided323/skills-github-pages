@@ -1,9 +1,9 @@
 ---
 Title: Keeper HTB
-Rating: Easy
-OS: Linux
 ---
-# Keeper HTB
+
+### Rating: Easy
+### OS: Linux
 
 We'll start with a basic nmap scan across all ports:
 ```bash
@@ -24,21 +24,21 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 The base web page has this link, the URL is redirecting to:
 `http://tickets.keeper.htb/rt/`
 
-![Keeper Web Page](Images/Keeper_HTB/Screenshot_2025-01-31_01-06-23.png)
+![Keeper Web Page](https://github.com/voided323/skills-github-pages/blob/main/_posts/Images/Keeper_HTB/Screenshot_2025-01-31_01-06-23.png?raw=true)
 
 I'll dump the domain name into the `/etc/hosts` file:
 `110.10.11.227    tickets.keeper.htb keeper.htb`
 
-![Keeper Ticket Page](Images/Keeper_HTB/Screenshot_2025-01-31_01-12-34.png)
+![Keeper Ticket Page](https://github.com/voided323/skills-github-pages/blob/main/_posts/Images/Keeper_HTB/Screenshot_2025-01-31_01-12-34.png?raw=true)
 
 We can sign in using the default credentials of `root` and `password`
 Checking through the tickets, there's one open about a KeePass issue on the users Windows box
 
-![Open_Ticket](Images/Keeper_HTB/Open_Tickets.png)
+![Open_Ticket](https://github.com/voided323/skills-github-pages/blob/main/_posts/Images/Keeper_HTB/Open_Tickets.png?raw=true)
 
 Some further poking around, we can see that the user Inorgaard has their user password in the profile:
 
-![Inorgaard user](Images/Keeper_HTB/Inorgaard.png)
+![Inorgaard user](https://github.com/voided323/skills-github-pages/blob/main/_posts/Images/Keeper_HTB/Inorgaard.png)
 
 Once we're on this box, we'll grab two files that were alluded to in the ticket:
 ```bash
